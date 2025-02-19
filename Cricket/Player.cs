@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,11 +25,15 @@ namespace Cricket
             BattingPos = AssignBattingPosition(roleId);
         }
 
+        public override string ToString()
+        {
+            return $"Name: {Name}\nRole: {Role.Name}\nBatting Category: {BattingPos.Category.Name}\nPreffered Position: {BattingPos.PrefferedPosition}";
+        }
+
         private int WeightedRandom(int[] values, double[] probabilities)
         {
             double rand = random.NextDouble();
             double cumulative = 0.0;
-
             for (int i = 0; i < values.Length; i++)
             {
                 cumulative += probabilities[i];

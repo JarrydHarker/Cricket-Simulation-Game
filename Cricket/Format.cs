@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Cricket
 {
-    public class Format
+    public static class SelectFormat
+    {
+        public static List<Format> Formats = new List<Format> { new T20(), new ODI(), new Test() };
+    }
+
+    public abstract class Format
     {
         public string Name { get; set; }
         public string Description { get; set; }
