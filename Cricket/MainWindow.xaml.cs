@@ -38,16 +38,21 @@ namespace Cricket
             Team teamA = new Team();
             Team teamB = new Team();
 
-            for (int i = 0; i < 11; i++) 
-            {
-                Player newPlayer = GeneratePlayer();
-
-                teamA.AddPlayer(newPlayer);
-                teamB.AddPlayer(newPlayer);
-            }
+            teamA.GenerateTeam();
+            teamB.GenerateTeam();
 
             Match match = new Match(SelectFormat.Formats[0], teamA, teamB);
             MessageBox.Show(match.SimulateInnings());
+        }
+
+        private void btnGenerateTeam_Click(object sender, RoutedEventArgs e)
+        {
+            Team newTeam = new Team();
+
+            newTeam.GenerateTeam();
+
+            MessageBox.Show(newTeam.ToString());
+
         }
     }
 }

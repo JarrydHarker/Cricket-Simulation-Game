@@ -63,7 +63,7 @@ namespace Cricket.Attributes
     {
         public Spin(int Value)
         {
-            Name = "Spin";
+            Name = "AgainstSpin";
             Description = "Ability to turn the ball sharply";
             this.Value = Value;
         }

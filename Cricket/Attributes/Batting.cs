@@ -17,99 +17,98 @@ namespace Cricket.Attributes
             new OffSide(0),
             new LegSide(0),
             new Defense(0),
-            new Spin(0),
-            new Pace(0)
+            new AgainstSpin(0),
+            new AgainstPace(0)
         };
+    }
 
-
-        public class Technique : Attribute
+    public class Technique : Attribute
+    {
+        public Technique(int Value)
         {
-            public Technique(int Value)
-            {
-                Name = "Technique";
-                Description = "Overall batting skill and fundamentals";
-                this.Value = Value;
-            }
+            Name = "Technique";
+            Description = "Overall batting skill and fundamentals";
+            this.Value = Value;
         }
+    }
 
-        public class ShotPower : Attribute
+    public class ShotPower : Attribute
+    {
+        public ShotPower(int Value)
         {
-            public ShotPower(int Value)
-            {
-                Name = "Shot Power";
-                Description = "Ability to strength behind shots for boundaries";
-                this.Value = Value;
-            }
+            Name = "Shot Power";
+            Description = "Ability to strength behind shots for boundaries";
+            this.Value = Value;
         }
+    }
 
-        public class Timing : Attribute
+    public class Timing : Attribute
+    {
+        public Timing(int Value)
         {
-            public Timing(int Value)
-            {
-                Name = "Timing";
-                Description = "Ability to middle the ball, reducing nicks and edges";
-                this.Value = Value;
-            }
+            Name = "Timing";
+            Description = "Ability to middle the ball, reducing nicks and edges";
+            this.Value = Value;
         }
+    }
 
-        public class Footwork : Attribute
+    public class Footwork : Attribute
+    {
+        public Footwork(int Value)
         {
-            public Footwork(int Value)
-            {
-                Name = "Footwork";
-                Description = "Ability to move around the crease, reducing LBWs";
-                this.Value = Value;
-            }
+            Name = "Footwork";
+            Description = "Ability to move around the crease, reducing LBWs";
+            this.Value = Value;
         }
+    }
 
-        public class OffSide : Attribute
+    public class OffSide : Attribute
+    {
+        public OffSide(int Value)
         {
-            public OffSide(int Value)
-            {
-                Name = "Off-Side";
-                Description = "Ability and tendency to play through the off-side";
-                this.Value = Value;
-            }
+            Name = "Off-Side";
+            Description = "Ability and tendency to play through the off-side";
+            this.Value = Value;
         }
+    }
 
-        public class LegSide : Attribute
+    public class LegSide : Attribute
+    {
+        public LegSide(int Value)
         {
-            public LegSide(int Value)
-            {
-                Name = "Leg-Side";
-                Description = "Ability and tendency to play on the leg-side";
-                this.Value = Value;
-            }
+            Name = "Leg-Side";
+            Description = "Ability and tendency to play on the leg-side";
+            this.Value = Value;
         }
+    }
 
-        public class Defense : Attribute
+    public class Defense : Attribute
+    {
+        public Defense(int Value)
         {
-            public Defense(int Value)
-            {
-                Name = "Defense";
-                Description = "Ability to defend";
-                this.Value = Value;
-            }
+            Name = "Defense";
+            Description = "Ability to defend";
+            this.Value = Value;
         }
+    }
 
-        public class Spin : Attribute
+    public class AgainstSpin : Attribute
+    {
+        public AgainstSpin(int Value)
         {
-            public Spin(int Value)
-            {
-                Name = "Spin";
-                Description = "Ability to play against spin bowlers";
-                this.Value = Value;
-            }
+            Name = "AgainstSpin";
+            Description = "Ability to play against spin bowlers";
+            this.Value = Value;
         }
+    }
 
-        public class Pace : Attribute
+    public class AgainstPace : Attribute
+    {
+        public AgainstPace(int Value)
         {
-            public Pace(int Value)
-            {
-                Name = "Pace";
-                Description = "Ability to play against pace bowlers";
-                this.Value = Value;
-            }
+            Name = "AgainstPace";
+            Description = "Ability to play against pace bowlers";
+            this.Value = Value;
         }
     }
 }

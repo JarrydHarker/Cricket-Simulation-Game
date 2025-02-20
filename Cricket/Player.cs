@@ -19,7 +19,25 @@ namespace Cricket
         {
             Name = "Generated Player";
 
-            int roleId = random.Next(0, 4);
+            int roleId = WeightedRandom(new int[] { 0, 1, 2, 3}, new double[] { 0.35, 0.1, 0.2, 0.35 });
+            Role = PlayerRoles.Roles[roleId];
+
+            BattingPos = AssignBattingPosition(roleId);
+        }
+
+        public Player(string Name, int roleId)
+        {
+            this.Name = Name;
+
+            Role = PlayerRoles.Roles[roleId];
+
+            BattingPos = AssignBattingPosition(roleId);
+        }
+
+        public Player(int roleId)
+        {
+            Name = "Generated Player";
+
             Role = PlayerRoles.Roles[roleId];
 
             BattingPos = AssignBattingPosition(roleId);
