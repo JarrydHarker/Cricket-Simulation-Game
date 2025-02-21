@@ -11,6 +11,7 @@ namespace Cricket
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Score { get; set; }
         public float Probability { get; set; }
         public string Symbol { get; set; }
     }
@@ -21,6 +22,7 @@ namespace Cricket
         {
             Name = "Dot ball";
             Symbol = ".";
+            Score = 0;
 
             switch (format.Name)
             {
@@ -37,7 +39,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = ""; // Add descriptions later if necessary
         }
     }
 
@@ -47,6 +49,7 @@ namespace Cricket
         {
             Name = "1 Run";
             Symbol = "1";
+            Score = 1;
 
             switch (format.Name)
             {
@@ -63,7 +66,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -73,6 +76,7 @@ namespace Cricket
         {
             Name = "2 Runs";
             Symbol = "2";
+            Score = 2;
 
             switch (format.Name)
             {
@@ -89,7 +93,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -99,6 +103,7 @@ namespace Cricket
         {
             Name = "3 Runs";
             Symbol = "3";
+            Score = 3;
 
             switch (format.Name)
             {
@@ -115,7 +120,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -125,6 +130,7 @@ namespace Cricket
         {
             Name = "4 Runs";
             Symbol = "4";
+            Score = 4;
 
             switch (format.Name)
             {
@@ -141,7 +147,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -151,6 +157,7 @@ namespace Cricket
         {
             Name = "6 Runs";
             Symbol = "6";
+            Score = 6;
 
             switch (format.Name)
             {
@@ -167,7 +174,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -177,6 +184,7 @@ namespace Cricket
         {
             Name = "Wicket";
             Symbol = "W";
+            Score = -1;
 
             switch (format.Name)
             {
@@ -193,7 +201,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -203,6 +211,7 @@ namespace Cricket
         {
             Name = "Wide";
             Symbol = "Wd";
+            Score = 3;
 
             switch (format.Name)
             {
@@ -219,7 +228,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
     }
 
@@ -229,6 +238,7 @@ namespace Cricket
         {
             Name = "No Ball";
             Symbol = "NB";
+            Score = 5; 
 
             switch (format.Name)
             {
@@ -245,7 +255,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
 
         public void Update(int Runs)
@@ -260,6 +270,7 @@ namespace Cricket
         {
             Name = "Leg Bye";
             Symbol = "Lb";
+            Score = 2; 
 
             switch (format.Name)
             {
@@ -276,7 +287,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
 
         public void Update(int Runs)
@@ -291,6 +302,7 @@ namespace Cricket
         {
             Name = "Bye";
             Symbol = "B";
+            Score = 3;
 
             switch (format.Name)
             {
@@ -307,7 +319,7 @@ namespace Cricket
                     break;
             }
 
-            Description = ""; //Need to add descriptions later
+            Description = "";
         }
 
         public void Update(int Runs)
@@ -315,4 +327,5 @@ namespace Cricket
             Symbol = "B" + Runs;
         }
     }
+
 }

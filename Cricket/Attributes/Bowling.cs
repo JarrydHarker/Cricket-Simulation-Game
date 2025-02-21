@@ -3,20 +3,26 @@ using System.Runtime.CompilerServices;
 
 namespace Cricket.Attributes
 {
-    public static class Bowling
+    public class PaceBowling : Bowling
     {
-        public static List<Attribute> Attributes = new List<Attribute>
-        {
-            new Control(0),
-            new Speed(0),
-            new Swing(0),
-            new Seam(0),
-            new Spin(0),
-            new Flight(0),
-            new Yorker(0),
-            new Bouncer(0),
-            new Slow(0)
-        };
+        public Yorker Yorker = new Yorker(0);
+        public Bouncer Bouncer = new Bouncer(0);
+        public Slow Slow = new Slow(0);
+        public Swing Swing = new Swing(0);
+        public Seam Seam = new Seam(0);
+    }
+
+    public class SpinBowling : Bowling 
+    {
+        public static Spin Spin = new Spin(0);
+        public static Flight Flight = new Flight(0);
+    }
+
+    public class Bowling
+    {
+        public static Control Control = new Control(0);
+        public static Speed Speed = new Speed(0);
+        public static Stock Stock = new Stock(0);
     }
 
     public class Control : Attribute
@@ -45,6 +51,16 @@ namespace Cricket.Attributes
         {
             Name = "Swing";
             Description = "Skill in moving the ball in the air (outswing/inswing)";
+            this.Value = Value;
+        }
+    }
+
+    public class Stock : Attribute
+    {
+        public Stock(int Value)
+        {
+            Name = "Stock Ball";
+            Description = "The ability to bowl a stock ball";
             this.Value = Value;
         }
     }

@@ -29,7 +29,7 @@ namespace Cricket
 
         public int GetNumDeliveries()
         {
-            return ((Overs.Count - 1) * 6) + Overs[Overs.Count -1].Deliveries.Count;
+            return ((Overs.Count - 1) * 6) + Overs[Overs.Count -1].DeliveryResults.Count;
         }
     }
 }

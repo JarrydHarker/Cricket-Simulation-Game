@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Cricket.Attributes;
 
 namespace Cricket
 {
@@ -12,7 +13,7 @@ namespace Cricket
         public string Name { get; set; }
         public Role Role { get; set; }
         public BattingPosition BattingPos { get; set; }
-        public List<Attribute> Attributes = new List<Attribute>();
+        public Dictionary<string, Attributes.Attribute> Attributes = new Dictionary<string, Attributes.Attribute>();
         private static Random random = new Random();
 
         public Player()
@@ -39,6 +40,14 @@ namespace Cricket
             Name = "Generated Player";
 
             Role = PlayerRoles.Roles[roleId];
+
+            PaceBowling bowling = new PaceBowling();
+
+            Attributes.Add(bowling.Seam.Name, bowling.Seam);
+            Attributes.Add(bowling.Yorker.Name, bowling.Yorker);
+            Attributes.Add(bowling.Bouncer.Name, bowling.Bouncer);
+            Attributes.Add(bowling.Swing.Name, bowling.Swing);
+            Attributes.Add(bowling.Slow.Name, bowling.Slow);
 
             BattingPos = AssignBattingPosition(roleId);
         }

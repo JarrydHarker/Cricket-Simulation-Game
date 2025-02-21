@@ -4,7 +4,9 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Shapes;
 
 namespace Cricket
 {
@@ -12,12 +14,16 @@ namespace Cricket
     {
         public Player Batsman { get; set; }
         public Player Bowler { get; set; }
+        public Ball Ball;
         public GameState gameState { get; set; }
         List<Result> PossibleResults;
         List<Result> ExtraResults;
         public Result Result { get; set; }
+        private Random random = new Random();
+        private float bowlingScore = 0;
+        private float battingScore = 0;
 
-        public Delivery(Player Batsman, Player Bowler, GameState gameState) 
+        public Delivery(Player Batsman, Player Bowler, GameState gameState)
         {
             this.Batsman = Batsman;
             this.Bowler = Bowler;
@@ -43,106 +49,155 @@ namespace Cricket
 
         public Result Simulate()
         {
-            Result result = GetResult(PossibleResults);
-
-            /*switch (result.Symbol)
-            {
-                case "1":
-                    Runs++;
-                    break;
-                case "2":
-                    Runs += 2;
-                    break;
-                case "3":
-                    Runs += 3;
-                    break;
-                case "4":
-                    Runs += 4;
-                    break;
-                case "6":
-                    Runs += 6;
-                    break;
-                case "W":
-                    Wickets++;
-                    break;
-                case "Wd":
-                    Runs++;
-                    Extras++;
-                    Length++;
-                    break;
-                case "NB":
-                    Result noBallResult = GetResult(ExtraResults);
-                    int nbRuns = int.Parse(noBallResult.Symbol);
-
-                    if (result is NoBall)
-                    {
-                        NoBall noBall = result as NoBall;
-
-                        noBall.Update(nbRuns);
-                        result = noBall;
-                    }
-
-                    Runs += nbRuns + 1;
-                    Extras++;
-                    Length++;
-                    break;
-                case "Lb":
-                    Result legByeResult = GetResult(ExtraResults);
-                    int lbRuns = int.Parse(legByeResult.Symbol);
-
-                    if (result is LegBye)
-                    {
-                        LegBye legBye = result as LegBye;
-
-                        legBye.Update(lbRuns);
-                        result = legBye;
-                    }
-
-                    Runs += lbRuns;
-                    Extras += lbRuns;
-                    break;
-                case "B":
-                    Result byeResult = GetResult(ExtraResults);
-                    int bRuns = int.Parse(byeResult.Symbol);
-
-                    if (result is LegBye)
-                    {
-                        LegBye bye = result as LegBye;
-
-                        bye.Update(bRuns);
-                        result = bye;
-                    }
-
-                    Runs += bRuns;
-                    Extras += bRuns;
-                    break;
-                default:
-                    break;
-            }*/
+            float skillDiff = bowlingScore - battingScore;
+            Result result = GetResult(PossibleResults, skillDiff);
 
             return result;
         }
 
-        public void BowlDelivery(Player Bowler)
+        public Ball BowlDelivery(Player bowler)
+        {
+            int line = DetermineBowlingLine(bowler);
+            int length = DetermineBowlingLength(bowler);
+
+            return new Ball(line, length);
+        }
+
+        private int DetermineBowlingLength(Player bowler)
+        {
+            int output = 0;
+            float length = (float)random.NextDouble() / 2;
+            int control = bowler.Attributes["Control"].Value;
+
+            // Attribute adjustment factor based on control (normalized)
+            float adjustment = CalcAttributeAdjustment(control);
+
+            // Move toward the 0.2-0.4 range if outside it, otherwise move away
+            if (length < 0.2)
+            {
+                length += adjustment; // Push up toward 0.2
+            } else if (length > 0.4)
+            {
+                length -= adjustment; // Push down toward 0.4
+            }
+
+            output = (int)Math.Round(Math.Clamp(length, 0f, 0.5f) * 10);
+
+            return output;
+        }
+
+        public int DetermineBowlingLine(Player bowler)
+        {
+            int output = 0;
+            float line = (float)(random.NextDouble() - 0.5f);
+            int control = bowler.Attributes["Control"].Value;
+
+            output = line < 0 ? (int)Math.Round((line + CalcAttributeAdjustment(control)) * 10) : (int)Math.Round((line - CalcAttributeAdjustment(control)) * 10);
+
+            return output;
+        }
+
+        public void CalcBowlingScore(Ball ball, Player bowler)
+        {
+            List<Attributes.Attribute> attributes = new List<Attributes.Attribute>();
+            float bowlingScore = 0;
+
+            if (ball.Length < 1)
+            {
+                attributes.Add(bowler.Attributes["Bouncer"]);
+            } else if (ball.Length > 4)
+            {
+                attributes.Add(bowler.Attributes["Yorker"]);
+            }
+
+            int deliveryType = random.Next(0, 4);
+
+            switch (deliveryType)
+            {
+                case 1:
+                    attributes.Add(bowler.Attributes["Slow"]);
+                    break;
+                case 2:
+                    attributes.Add(bowler.Attributes["Swing"]);
+                    break;
+                case 3:
+                    attributes.Add(bowler.Attributes["Seam"]);
+                    break;
+                default:
+                    attributes.Add(bowler.Attributes["Stock"]);
+                    break;
+            }
+
+            foreach (Attributes.Attribute attribute in attributes)
+            {
+                bowlingScore += CalcAttributeAdjustment(attribute.Value);
+            }
+
+            this.bowlingScore = bowlingScore;
+        }
+
+        public void CalcBattingScore(Ball ball, Player batter)
         {
 
         }
 
-        public void FaceDelivery(Player Batsman)
+        public void FaceDelivery(Player Batsman, Ball Ball)
         {
 
         }
 
-        Result GetResult(List<Result> results)
+        private float CalcAttributeAdjustment(int attributeVal)
         {
-            Random random = new Random();
+            return (float)(((float)(attributeVal - 10) / 20) * 0.16); //Linear Scaling for now
+        }
+
+        public Result GetResult(List<Result> results, List<int> attributeVals)
+        {
             float roll = (float)random.NextDouble(); // Random value between 0 and 1
             float cumulativeProbability = 0f;
+
+            float adjustedRoll = roll;
+
+            foreach (int attribute in attributeVals)
+            {
+                adjustedRoll += CalcAttributeAdjustment(attribute);
+            }
+
+            if (adjustedRoll < 0)
+                adjustedRoll = 0;
+
+            results = results.OrderBy(x => x.Score).ToList();
 
             foreach (var result in results)
             {
                 cumulativeProbability += result.Probability;
-                if (roll <= cumulativeProbability)
+                if (adjustedRoll <= cumulativeProbability)
+                {
+                    return result;
+                }
+            }
+
+            return results[^1]; // Fallback in case of floating point precision errors
+        }
+
+        public Result GetResult(List<Result> results, float skillDifferential)
+        {
+            float roll = (float)random.NextDouble(); // Random value between 0 and 1
+            float cumulativeProbability = 0f;
+
+            float adjustedRoll = roll;
+
+            adjustedRoll += skillDifferential;
+
+            if (adjustedRoll < 0)
+                adjustedRoll = 0;
+
+            results = results.OrderBy(x => x.Score).ToList();
+
+            foreach (var result in results)
+            {
+                cumulativeProbability += result.Probability;
+                if (adjustedRoll <= cumulativeProbability)
                 {
                     return result;
                 }
