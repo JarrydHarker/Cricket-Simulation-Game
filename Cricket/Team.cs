@@ -59,11 +59,13 @@ namespace Cricket
                 if (roleId == 3)
                 {
                     //newPlayer.Attributes["Pace"].Value = 20;
-                    newPlayer.Attributes["Bouncer"].Value = 20;
-                    newPlayer.Attributes["Yorker"].Value = 20;
-                    newPlayer.Attributes["Swing"].Value = 20;
-                    newPlayer.Attributes["Seam"].Value = 20;
-                    newPlayer.Attributes["Slower Ball"].Value = 20;
+                    newPlayer.Attributes["Bouncer"].Value = 0;
+                    newPlayer.Attributes["Yorker"].Value = 0;
+                    newPlayer.Attributes["Swing"].Value = 0;
+                    newPlayer.Attributes["Seam"].Value = 0;
+                    newPlayer.Attributes["Slower Ball"].Value = 0;
+                    newPlayer.Attributes["Control"].Value = 0;
+                    newPlayer.Attributes["Stock Ball"].Value = 0;
                 }
                 
                 AddPlayer(newPlayer);

@@ -11,6 +11,7 @@ namespace Cricket
         public int Runs;
         public int Wickets;
         public int Extras;
+        public float RunRate;
         public List<Over> Overs = new List<Over>();
 
         public Score()
@@ -25,6 +26,12 @@ namespace Cricket
             Runs += over.Runs;
             Wickets += over.Wickets;
             Extras += over.Extras;
+            CalcRunRate();
+        }
+
+        public float CalcRunRate()
+        {
+            return RunRate = (float)Math.Round((float)Runs / (GetNumDeliveries()/6), 2);
         }
 
         public int GetNumDeliveries()

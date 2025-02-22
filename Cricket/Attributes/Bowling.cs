@@ -20,9 +20,9 @@ namespace Cricket.Attributes
 
     public class Bowling
     {
-        public static Control Control = new Control(0);
-        public static Speed Speed = new Speed(0);
-        public static Stock Stock = new Stock(0);
+        public Control Control = new Control(0);
+        public Speed Speed = new Speed(0);
+        public Stock Stock = new Stock(0);
     }
 
     public class Control : Attribute

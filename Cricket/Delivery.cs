@@ -49,7 +49,10 @@ namespace Cricket
 
         public Result Simulate()
         {
-            float skillDiff = bowlingScore - battingScore;
+            Ball ball = BowlDelivery(Bowler);
+            CalcBowlingScore(ball, Bowler);
+            float skillDiff = battingScore - bowlingScore;
+            
             Result result = GetResult(PossibleResults, skillDiff);
 
             return result;
@@ -115,7 +118,7 @@ namespace Cricket
             switch (deliveryType)
             {
                 case 1:
-                    attributes.Add(bowler.Attributes["Slow"]);
+                    attributes.Add(bowler.Attributes["Slower Ball"]);
                     break;
                 case 2:
                     attributes.Add(bowler.Attributes["Swing"]);
@@ -124,7 +127,7 @@ namespace Cricket
                     attributes.Add(bowler.Attributes["Seam"]);
                     break;
                 default:
-                    attributes.Add(bowler.Attributes["Stock"]);
+                    attributes.Add(bowler.Attributes["Stock Ball"]);
                     break;
             }
 

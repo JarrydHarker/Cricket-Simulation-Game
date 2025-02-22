@@ -48,6 +48,8 @@ namespace Cricket
             Attributes.Add(bowling.Bouncer.Name, bowling.Bouncer);
             Attributes.Add(bowling.Swing.Name, bowling.Swing);
             Attributes.Add(bowling.Slow.Name, bowling.Slow);
+            Attributes.Add(bowling.Control.Name, bowling.Control);
+            Attributes.Add(bowling.Stock.Name, bowling.Stock);
 
             BattingPos = AssignBattingPosition(roleId);
         }
