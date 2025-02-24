@@ -11,9 +11,9 @@ namespace Cricket
         public string Name { get; set; }
         public List<Player> players = new List<Player>();
 
-        public Team() 
-        { 
-        
+        public Team()
+        {
+
         }
 
         public void GenerateTeam()
@@ -56,18 +56,29 @@ namespace Cricket
 
                 Player newPlayer = new Player(roleId);
 
-                if (roleId == 3)
+                switch (roleId)
                 {
-                    //newPlayer.Attributes["Pace"].Value = 20;
-                    newPlayer.Attributes["Bouncer"].Value = 0;
-                    newPlayer.Attributes["Yorker"].Value = 0;
-                    newPlayer.Attributes["Swing"].Value = 0;
-                    newPlayer.Attributes["Seam"].Value = 0;
-                    newPlayer.Attributes["Slower Ball"].Value = 0;
-                    newPlayer.Attributes["Control"].Value = 0;
-                    newPlayer.Attributes["Stock Ball"].Value = 0;
+                    case 0:
+                        newPlayer.Attributes["Technique"].Value = 10;
+                        newPlayer.Attributes["Timing"].Value = 10;
+                        newPlayer.Attributes["Footwork"].Value = 10;
+                        newPlayer.Attributes["Leg-Side"].Value = 10;
+                        newPlayer.Attributes["Off-Side"].Value = 10;
+                        newPlayer.Attributes["Front Foot"].Value = 10;
+                        newPlayer.Attributes["Back Foot"].Value = 10;
+                        break;
+                    case 3:
+                        //newPlayer.Attributes["Pace"].Value = 20;
+                        newPlayer.Attributes["Bouncer"].Value = 10;
+                        newPlayer.Attributes["Yorker"].Value = 10;
+                        newPlayer.Attributes["Swing"].Value = 10;
+                        newPlayer.Attributes["Seam"].Value = 10;
+                        newPlayer.Attributes["Slower Ball"].Value = 10;
+                        newPlayer.Attributes["Control"].Value = 10;
+                        newPlayer.Attributes["Stock Ball"].Value = 10;
+                        break;
                 }
-                
+
                 AddPlayer(newPlayer);
             }
 

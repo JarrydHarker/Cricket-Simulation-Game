@@ -21,10 +21,12 @@ namespace Cricket
         List<Result> ExtraResults;
         int TotalWickets;
 
-        public Over(int number, Player bowler, List<Result> possibleResults, int TotalWickets)
+        public Over(int number, Player bowler, Tuple<Player, Player> batsmen,List<Result> possibleResults, int TotalWickets)
         {
             Number = number;
             Bowler = bowler;
+            CurrentBatsmen = batsmen;
+            OnStrikeBatsman = CurrentBatsmen.Item1;
 
             PossibleResults = possibleResults;
             ExtraResults = possibleResults.Where(x => int.TryParse(x.Symbol, out int num) == true).ToList();
@@ -46,12 +48,14 @@ namespace Cricket
                 {
                     case "1":
                         Runs++;
+                        OnStrikeBatsman = OnStrikeBatsman == CurrentBatsmen.Item1 ? OnStrikeBatsman = CurrentBatsmen.Item2 : CurrentBatsmen.Item1;
                         break;
                     case "2":
                         Runs += 2;
                         break;
                     case "3":
                         Runs += 3;
+                        OnStrikeBatsman = OnStrikeBatsman == CurrentBatsmen.Item1 ? OnStrikeBatsman = CurrentBatsmen.Item2 : CurrentBatsmen.Item1;
                         break;
                     case "4":
                         Runs += 4;
@@ -82,6 +86,12 @@ namespace Cricket
                         Runs += nbRuns + 1;
                         Extras++;
                         Length++;
+
+                        if (nbRuns % 2 == 1)
+                        {
+                            OnStrikeBatsman = OnStrikeBatsman == CurrentBatsmen.Item1 ? OnStrikeBatsman = CurrentBatsmen.Item2 : CurrentBatsmen.Item1;
+                        }
+
                         break;
                     case "Lb":
                         Result legByeResult = delivery.GetResult(ExtraResults, 0);//Need to Change
@@ -97,6 +107,11 @@ namespace Cricket
 
                         Runs += lbRuns;
                         Extras += lbRuns;
+
+                        if (lbRuns % 2 == 1)
+                        {
+                            OnStrikeBatsman = OnStrikeBatsman == CurrentBatsmen.Item1 ? OnStrikeBatsman = CurrentBatsmen.Item2 : CurrentBatsmen.Item1;
+                        }
                         break;
                     case "B":
                         Result byeResult = delivery.GetResult(ExtraResults, 0);//Need to Change
@@ -112,6 +127,11 @@ namespace Cricket
 
                         Runs += bRuns;
                         Extras += bRuns;
+
+                        if (bRuns % 2 == 1)
+                        {
+                            OnStrikeBatsman = OnStrikeBatsman == CurrentBatsmen.Item1 ? OnStrikeBatsman = CurrentBatsmen.Item2 : CurrentBatsmen.Item1;
+                        }
                         break;
                     default:
                         break;

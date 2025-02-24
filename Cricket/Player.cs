@@ -51,6 +51,14 @@ namespace Cricket
             Attributes.Add(bowling.Control.Name, bowling.Control);
             Attributes.Add(bowling.Stock.Name, bowling.Stock);
 
+            Attributes.Add(Batting.BackFoot.Name, Batting.BackFoot);
+            Attributes.Add(Batting.Technique.Name, Batting.Technique);
+            Attributes.Add(Batting.Timing.Name, Batting.Timing);
+            Attributes.Add(Batting.Footwork.Name, Batting.Footwork);
+            Attributes.Add(Batting.FrontFoot.Name, Batting.FrontFoot);
+            Attributes.Add(Batting.OffSide.Name, Batting.OffSide);
+            Attributes.Add(Batting.LegSide.Name, Batting.LegSide);
+
             BattingPos = AssignBattingPosition(roleId);
         }
 

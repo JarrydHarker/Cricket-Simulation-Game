@@ -8,18 +8,37 @@ namespace Cricket.Attributes
 {
     public static class Batting
     {
-        public static List<Attribute> Attributes = new List<Attribute>
+        public static Technique Technique = new Technique(0);
+        public static ShotPower ShotPower = new ShotPower(0);
+        public static Timing Timing = new Timing(0);
+        public static Footwork Footwork = new Footwork(0);
+        public static OffSide OffSide = new OffSide(0);
+        public static LegSide LegSide = new LegSide(0);
+        public static Defense Defense = new Defense(0);
+        public static AgainstSpin AgainstSpin = new AgainstSpin(0);
+        public static AgainstPace AgainstPace = new AgainstPace(0);
+        public static FrontFoot FrontFoot = new FrontFoot(0);
+        public static BackFoot BackFoot = new BackFoot(0);
+    }
+
+    public class BackFoot : Attribute
+    {
+        public BackFoot(int Value)
         {
-            new Technique(0),
-            new ShotPower(0),
-            new Timing(0),
-            new Footwork(0),
-            new OffSide(0),
-            new LegSide(0),
-            new Defense(0),
-            new AgainstSpin(0),
-            new AgainstPace(0)
-        };
+            Name = "Back Foot";
+            Description = "Ability to play shorter deliveries on the back foot";
+            this.Value = Value;
+        }
+    }
+
+    public class FrontFoot : Attribute
+    {
+        public FrontFoot(int Value)
+        {
+            Name = "Front Foot";
+            Description = "Ability to play fuller deliveries on the front foot";
+            this.Value = Value;
+        }
     }
 
     public class Technique : Attribute

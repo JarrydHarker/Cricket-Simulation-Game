@@ -51,11 +51,11 @@ namespace Cricket
             }
 
             int extraballs = Score.GetNumDeliveries() % 6;
-            
-            if (extraballs > 0) 
+
+            if (extraballs > 0)
             {
                 output += $"\n {Score.Runs}/{Score.Wickets} in {Convert.ToInt32(Math.Floor((double)Score.GetNumDeliveries() / 6))}.{extraballs} overs\n Run Rate: {Score.CalcRunRate()}";
-            }else
+            } else
             {
                 output += $"\n {Score.Runs}/{Score.Wickets} in {Convert.ToInt32(Math.Floor((double)Score.GetNumDeliveries() / 6))} overs\n Run Rate: {Score.CalcRunRate()}";
             }
@@ -65,7 +65,12 @@ namespace Cricket
 
         public Over SimulateOver(int overNumber, int TotalWickets)
         {
-            Over over = new Over(overNumber, TeamA.players.Where(x => x.Role.Name == "Bowler").FirstOrDefault(), PossibleResults, TotalWickets);
+            Tuple<Player, Player> batsmen = new Tuple<Player, Player>(
+                TeamB.players.FirstOrDefault(x => x.Role.Name == "Batter"),
+                TeamB.players.Skip(1).FirstOrDefault(x => x.Role.Name == "Batter")
+            );
+
+            Over over = new Over(overNumber, TeamA.players.Where(x => x.Role.Name == "Bowler").FirstOrDefault(), batsmen, PossibleResults, TotalWickets);
             over.Simulate();
 
             return over;

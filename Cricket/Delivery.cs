@@ -51,6 +51,7 @@ namespace Cricket
         {
             Ball ball = BowlDelivery(Bowler);
             CalcBowlingScore(ball, Bowler);
+            CalcBattingScore(ball, Batsman);
             float skillDiff = battingScore - bowlingScore;
             
             Result result = GetResult(PossibleResults, skillDiff);
@@ -89,7 +90,7 @@ namespace Cricket
             return output;
         }
 
-        public int DetermineBowlingLine(Player bowler)
+        private int DetermineBowlingLine(Player bowler)
         {
             int output = 0;
             float line = (float)(random.NextDouble() - 0.5f);
@@ -100,7 +101,7 @@ namespace Cricket
             return output;
         }
 
-        public void CalcBowlingScore(Ball ball, Player bowler)
+        private void CalcBowlingScore(Ball ball, Player bowler)
         {
             List<Attributes.Attribute> attributes = new List<Attributes.Attribute>();
             float bowlingScore = 0;
@@ -139,14 +140,39 @@ namespace Cricket
             this.bowlingScore = bowlingScore;
         }
 
-        public void CalcBattingScore(Ball ball, Player batter)
+        private void CalcBattingScore(Ball ball, Player batter)
         {
+            List<Attributes.Attribute> attributes = new List<Attributes.Attribute>();
+            float battingScore = 0;
 
-        }
+            if (ball.Length < 1)
+            {
+                attributes.Add(batter.Attributes["Back Foot"]);
+            } else if (ball.Length > 4)
+            {
+                attributes.Add(batter.Attributes["Front Foot"]);
+            }
 
-        public void FaceDelivery(Player Batsman, Ball Ball)
-        {
+            if (ball.Line < 1)
+            {
+                attributes.Add(batter.Attributes["Leg-Side"]);
+            } else
+            {
+                attributes.Add(batter.Attributes["Off-Side"]);
+            }
 
+            attributes.AddRange(new List<Attributes.Attribute> { 
+                batter.Attributes["Technique"],
+                batter.Attributes["Timing"],
+                batter.Attributes["Footwork"]
+            });
+
+            foreach (Attributes.Attribute attribute in attributes)
+            {
+                battingScore += CalcAttributeAdjustment(attribute.Value);
+            }
+
+            this.battingScore = battingScore;
         }
 
         private float CalcAttributeAdjustment(int attributeVal)
